@@ -15,22 +15,19 @@ import java.util.Iterator;
 public class EmployeeRecords extends javax.swing.JFrame {
 
     
-    https://codereview.stackexchange.com/questions/145268/simple-employee-records-program
+  // https://codereview.stackexchange.com/questions/145268/simple-employee-records-program
     /**
      * Creates new form EmployeeRecords
      */
-//     ArrayList <String> Arraylist = new ArrayList();
-//    creating array for the marks and names to be entered
-//    String [][] people = new String [35][5];
-//    starting students at 0 to create a veriable to monitor where the new data is entered into the array 
-//    int employees = 0;
-//    
-    
-    ArrayList <Integer> IDs = new ArrayList();
-    ArrayList <Integer> Salary = new ArrayList();
+     ArrayList <String> Arraylist = new ArrayList();
+    //creating array for the marks and names to be entered
+    String [][] people = new String [35][5];
+    //starting students at 0 to create a veriable to monitor where the new data is entered into the array 
+    int employees = 0;
+    ArrayList <String> IDs = new ArrayList();
+    ArrayList <String> Name = new ArrayList();
+    ArrayList <String> AnnualSalary = new ArrayList();
     ArrayList <String> StartDate = new ArrayList();
-    ArrayList <String> FirstName = new ArrayList();
-    ArrayList <String> LastName = new ArrayList();
     
     public EmployeeRecords() {
         initComponents();
@@ -112,6 +109,11 @@ public class EmployeeRecords extends javax.swing.JFrame {
         });
 
         remove.setText("Remove");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
 
         list.setText("List");
         list.addActionListener(new java.awt.event.ActionListener() {
@@ -120,10 +122,12 @@ public class EmployeeRecords extends javax.swing.JFrame {
             }
         });
 
+        Output1.setEditable(false);
         Output1.setColumns(20);
         Output1.setRows(5);
         jScrollPane1.setViewportView(Output1);
 
+        Output2.setEditable(false);
         Output2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Output2ActionPerformed(evt);
@@ -184,7 +188,7 @@ public class EmployeeRecords extends javax.swing.JFrame {
                         .addGap(137, 137, 137))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))))
+                        .addGap(53, 53, 53))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,21 +246,22 @@ public class EmployeeRecords extends javax.swing.JFrame {
     }//GEN-LAST:event_input5ActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        // TODO add your handling code here:
-        
         //adding the ID# to the array in position 1
        people[employees][0] = input1.getText();
        Arraylist.add(people[employees][0]);
+       IDs.add(people[employees][0]);
        //combining the name together and adding it to the array 
        people[employees][1] = input2.getText() + " " + input3.getText();
        Arraylist.add(people[employees][1]);
+       Name.add(people[employees][1]);
        //adding the anual salary to the array 
        people[employees][2] = input4.getText();
        Arraylist.add(people[employees][2]);
+       AnnualSalary.add(people[employees][2]);
        //adding the Start date to the array
-       people[employees][2] = input4.getText();
+       people[employees][2] = input5.getText();
        Arraylist.add(people[employees][3]);
-        
+       StartDate.add(people[employees][3]);
     }//GEN-LAST:event_addActionPerformed
 
     private void Output2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Output2ActionPerformed
@@ -273,10 +278,44 @@ public class EmployeeRecords extends javax.swing.JFrame {
         for (int i=0;i<Arraylist.size();i++){
             a = (String) stepper.next();
             temp = temp + a +"\n";
+            employees++;
         }
         Output1.setText(temp);
         
     }//GEN-LAST:event_listActionPerformed
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        
+        if (!input1.getText().equals("")) {
+                
+        boolean pass = true;
+        }
+        for (int i = IDs.size() - 1; i >= 0; i--) {
+            
+            String numb = input1.getText();
+        
+            // If the request is found, it removes all data
+            if (numb == IDs.get(i)) {                
+                Output2.setText("Employee #" + IDs.get(i) + " has been removed from the records.");
+                IDs.remove(i);
+                Name.remove(i);
+                AnnualSalary.remove(i);
+                StartDate.remove(i);
+                break;
+            
+                // If not, the ID# does not match the ones added to the array
+         
+            }else{
+                
+           Output2.setText("ID# does not exist.");
+        }
+            }
+             if (input1.getText().equals("")) {
+                Output1.setText("The ID# must be entered before someone can be deleted.");
+              boolean pass = false;
+         }
+       
+    }//GEN-LAST:event_removeActionPerformed
 
     /**
      * @param args the command line arguments
